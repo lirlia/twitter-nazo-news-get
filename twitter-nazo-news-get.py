@@ -37,7 +37,7 @@ regionName = 'ap-northeast-1'               # 使用するリージョン名
 hatenaUsername = 'lirlia'
 hatenaPassword = os.environ.get('Hatena_Password')
 hatenaBlogname = 'lirlia.hatenablog.com'
-hatenaDraft = 'yes'
+hatenaDraft = 'no'
 hatenaAuthor = 'ぎん'
 
 

@@ -1,9 +1,0 @@
-{
-  "name": "twitter-nazo-news-get",
-  "description": "twitterで話題の謎解き情報を取得して記事化",
-  "region": "ap-northeast-1",
-  "handler": "twitter-nazo-news-get.lambda_handler",
-  "role": "arn:aws:iam::850890597300:role/lambda_basic_execution_dynamodb_access",
-  "timeout": 300,
-  "memory": 128
-}
