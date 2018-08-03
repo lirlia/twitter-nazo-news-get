@@ -99,7 +99,7 @@ def PostHatena(nazoList, today):
         u'<p><img class="hatena-fotolife" title="画像" src="https://cdn-ak.f.st-hatena.com/images/fotolife/l/lirlia/20170612/20170612112453.jpg" alt="f:id:lirlia:20161124194747j:plain" /></p>' \
         u'<p><!-- more --></p>' \
         u'<p></p>' \
-        u'<p>こんにちは、<span id="myicon"> </span><a href="https://twitter.com/intent/user?original_referer=http://lirlia.hatenablog.com/&amp;region=follow&amp;screen_name=tenhouginsama&amp;tw_p=followbutton&amp;variant=2.0">ぎん</a>です。' \
+        u'<p>こんにちは、<span id="myicon"> </span><a href="https://twitter.com/intent/user?original_referer=https://www.nazomap.com/&amp;region=follow&amp;screen_name=tenhouginsama&amp;tw_p=followbutton&amp;variant=2.0">ぎん</a>です。' \
         u'<p>' + \
         day1 + u'〜' + day2 + u'の期間に話題の、<strong>リアル脱出ゲーム・リアル謎解き関連のニュース</strong>を紹介します。これだけみれば最新状況が追える！</p>' \
         u'<p></p>' \
