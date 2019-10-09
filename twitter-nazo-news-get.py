@@ -36,10 +36,10 @@ regionName = 'ap-northeast-1'               # 使用するリージョン名
 ## Hatena系の変数
 hatenaUsername = 'lirlia'
 hatenaPassword = os.environ.get('Hatena_Password')
-hatenaBlogname = 'lirlia.hatenablog.com'
+hatenaBlogname = 'www.nazomap.com'
 hatenaDraft = 'no'
 hatenaAuthor = 'ぎん'
-
+hatenaBlogEntryId = '26006613446979014'
 
 #
 # 特定の条件を満たすTweetを検索
@@ -68,6 +68,26 @@ def SearchTweet(today):
         sys.exit()
 
     return json.loads(req.text)
+
+def PostTweet(today):
+
+    lastWeek = today - datetime.timedelta(days=7)
+    day1 = lastWeek.strftime("%Y/%m/%d")
+    day2 = today.strftime("%Y/%m/%d")
+    year = str(today.strftime("%Y"))
+
+    url = "https://api.twitter.com/1.1/statuses/update.json"
+    status= u"今週("+ day1 + u'〜' + day2 + u")のリアル脱出ゲーム・謎解き界隈のニュースを更新しました！　https://www.nazomap.com/entry/weekNews"
+    params = {'status': status }
+
+    req = twitter.post(url, params = params)
+
+    # レスポンスを確認
+    if req.status_code != 200:
+        print ("Error: %d" % req.status_code)
+        sys.exit()
+
+    return
 
 
 #
@@ -148,23 +168,22 @@ def PostHatena(nazoList, today):
     body = escape(body)
     data = \
         u'<?xml version="1.0" encoding="utf-8"?>' \
-        u'<entry xmlns="http://www.w3.org/2005/Atom"' \
+        u'<entry xmlns="http://www.w3.org/2005/Atom" ' \
         u'xmlns:app="http://www.w3.org/2007/app">' \
-        u'<title>' + title + '</title>' \
-        u'<author><name>name</name></author>' \
+        u'<title>' + title + u'</title>' \
+        u'<author><name>ぎん</name></author>' \
         u'<content type="text/plain">' + body + u'</content>' \
         u'<category term="今週のニュース" />' \
-        u'<category term="今週のニュース-' + year + u'年" />' \
         u'<app:control>' \
-        u'<app:draft>' + hatenaDraft + '</app:draft>' \
+        u'<app:draft>no</app:draft>' \
         u'</app:control>' \
         u'</entry>'
 
     headers = {'X-WSSE': Wsse()}
-    url = 'http://blog.hatena.ne.jp/{}/{}/atom/entry'.format(hatenaUsername, hatenaBlogname)
-    req = requests.post(url, data=data.encode('utf-8'), headers=headers)
+    url = 'http://blog.hatena.ne.jp/{}/{}/atom/entry/{}'.format(hatenaUsername, hatenaBlogname, hatenaBlogEntryId)
+    req = requests.put(url, data=data.encode('utf-8'), headers=headers)
 
-    if req.status_code != 201:
+    if req.status_code != 200:
         print ("Error: %d" % req.status_code)
         sys.exit()
 
@@ -206,5 +225,8 @@ def lambda_handler(event, context):
 
     # ブログへ記事を投稿
     PostHatena(nazoList, today)
+
+    # Twitterへ投稿
+    PostTweet(today)
 
     return { "messages":"success!" }
